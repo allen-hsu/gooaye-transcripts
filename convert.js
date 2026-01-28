@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
-// Read transcript
-const transcript = fs.readFileSync('/Users/allen/clawd/data/gooaye/EP631.txt', 'utf-8');
+// Read Traditional Chinese transcript
+const transcript = fs.readFileSync('/Users/allen/clawd/data/gooaye/EP631_tw.txt', 'utf-8');
 
 // Create episode data
 const episodes = [
@@ -21,4 +21,4 @@ fs.writeFileSync(
     'utf-8'
 );
 
-console.log('Created episodes.json with', episodes.length, 'episodes');
+console.log('Updated episodes.json with Traditional Chinese');
