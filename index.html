@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>股癌 Podcast 轉錄</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🎙️ 股癌 Podcast 轉錄</h1>
+            <p class="subtitle">Gooaye 節目逐字稿整理</p>
+        </div>
+    </header>
+    
+    <main class="container">
+        <div class="search-bar">
+            <input type="text" id="search" placeholder="搜尋關鍵字...">
+        </div>
+        
+        <div class="cards-grid" id="cards-container">
+            <!-- Cards will be inserted here -->
+        </div>
+    </main>
+    
+    <!-- Modal for full transcript -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close">&times;</button>
+            <h2 id="modal-title"></h2>
+            <p class="modal-date" id="modal-date"></p>
+            <div class="modal-body" id="modal-body"></div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>非官方轉錄，僅供個人學習使用</p>
+            <p>原節目：<a href="https://linktr.ee/gooaye" target="_blank">Gooaye 股癌</a></p>
+        </div>
+    </footer>
+    
+    <script src="app.js"></script>
+</body>
+</html>
