@@ -24,37 +24,6 @@ async function loadData() {
     }
 }
 
-// Generate summary from transcript
-function generateSummary(transcript, maxLength = 80) {
-    // Skip ad content at the beginning
-    const lines = transcript.split('\n').filter(line => line.trim());
-    let content = '';
-    
-    // Ad keywords to skip
-    const adKeywords = [
-        '贊助', '赞助', '優惠碼', '优惠码', '連結附上', '连结附上',
-        '理性飲酒', '理性饮酒', '禁止酒駕', '禁止酒驾', '未滿18', '未满18',
-        '歡迎收聽', '欢迎收听', '本期節目由', '本期节目由', '送禮', '送礼',
-        '代言', '廣告', '广告', '折扣', '優惠', '优惠'
-    ];
-    
-    for (const line of lines) {
-        // Skip obvious ads
-        if (adKeywords.some(kw => line.includes(kw))) {
-            continue;
-        }
-        content += line + ' ';
-        if (content.length > maxLength) break;
-    }
-    
-    // If all content was ads, just take first non-empty line
-    if (!content.trim() && lines.length > 0) {
-        content = lines[0];
-    }
-    
-    return content.trim().slice(0, maxLength) + '...';
-}
-
 // Extract tags from content
 function extractTags(transcript) {
     const tags = [];
@@ -94,8 +63,8 @@ function renderCards(data) {
     }
     
     cardsContainer.innerHTML = data.map((ep, index) => {
-        const summary = generateSummary(ep.transcript);
         const tags = extractTags(ep.transcript);
+        const hasHighlights = ep.highlights && ep.highlights.length > 0;
         
         return `
             <div class="card" data-index="${index}">
@@ -104,12 +73,22 @@ function renderCards(data) {
                     <span class="card-date">${ep.date}</span>
                 </div>
                 <h3 class="card-title">${ep.title}</h3>
-                <p class="card-summary">${summary}</p>
-                ${tags.length > 0 ? `
-                    <div class="card-tags">
-                        ${tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                ${hasHighlights ? `
+                    <div class="card-highlights">
+                        <div class="highlights-label">📌 本集重點</div>
+                        <ul class="highlights-list">
+                            ${ep.highlights.map(h => `<li>${h}</li>`).join('')}
+                        </ul>
                     </div>
                 ` : ''}
+                <div class="card-footer">
+                    ${tags.length > 0 ? `
+                        <div class="card-tags">
+                            ${tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                    ` : '<div></div>'}
+                    <button class="read-more-btn">閱讀全文 →</button>
+                </div>
             </div>
         `;
     }).join('');
@@ -148,9 +127,11 @@ function handleSearch() {
     }
     
     const filtered = episodes.filter(ep => {
+        const highlightsMatch = ep.highlights?.some(h => h.toLowerCase().includes(query));
         return ep.title.toLowerCase().includes(query) ||
                ep.transcript.toLowerCase().includes(query) ||
-               ep.episode.toLowerCase().includes(query);
+               ep.episode.toLowerCase().includes(query) ||
+               highlightsMatch;
     });
     
     renderCards(filtered);
