@@ -25,18 +25,31 @@ async function loadData() {
 }
 
 // Generate summary from transcript
-function generateSummary(transcript, maxLength = 200) {
+function generateSummary(transcript, maxLength = 80) {
     // Skip ad content at the beginning
     const lines = transcript.split('\n').filter(line => line.trim());
     let content = '';
     
+    // Ad keywords to skip
+    const adKeywords = [
+        '贊助', '赞助', '優惠碼', '优惠码', '連結附上', '连结附上',
+        '理性飲酒', '理性饮酒', '禁止酒駕', '禁止酒驾', '未滿18', '未满18',
+        '歡迎收聽', '欢迎收听', '本期節目由', '本期节目由', '送禮', '送礼',
+        '代言', '廣告', '广告', '折扣', '優惠', '优惠'
+    ];
+    
     for (const line of lines) {
         // Skip obvious ads
-        if (line.includes('贊助') || line.includes('優惠碼') || line.includes('連結附上')) {
+        if (adKeywords.some(kw => line.includes(kw))) {
             continue;
         }
         content += line + ' ';
         if (content.length > maxLength) break;
+    }
+    
+    // If all content was ads, just take first non-empty line
+    if (!content.trim() && lines.length > 0) {
+        content = lines[0];
     }
     
     return content.trim().slice(0, maxLength) + '...';

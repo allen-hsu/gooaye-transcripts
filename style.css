@@ -139,11 +139,12 @@ header h1 {
 
 .card-summary {
     color: var(--text-muted);
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     display: -webkit-box;
-    -webkit-line-clamp: 6;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    line-height: 1.5;
 }
 
 .card-tags {
