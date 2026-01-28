@@ -8,6 +8,50 @@
       "低軌道衛星競逐白熱化：Starlink、ASTS、Amazon Terra Wave 搶產能，缺貨漲價可能發生",
       "原物料漲價傳導中：銀、銅箔推升被動元件價格，長期恐引發通膨壓力",
       "關稅博弈升溫：韓國擋美法案遭川普加碼制裁，台灣軍購預算也面臨壓力"
+    ],
+    "stocks": [
+      {
+        "name": "華通",
+        "code": "2313",
+        "category": "衛星PCB",
+        "note": "衛星版領先者，產能可能被包滿"
+      },
+      {
+        "name": "燿華",
+        "code": "2367",
+        "category": "衛星PCB",
+        "note": "衛星版備選，若華通滿載可能受惠"
+      },
+      {
+        "name": "博智",
+        "code": "8155",
+        "category": "衛星/AI基板",
+        "note": "與日本Meko合資越南廠，可能做衛星或AI server"
+      },
+      {
+        "name": "被動元件族群",
+        "code": null,
+        "category": "被動元件",
+        "note": "銀價上漲帶動漲價，價格傳導中"
+      },
+      {
+        "name": "銅箔族群",
+        "code": null,
+        "category": "原物料",
+        "note": "價格往好的方向走，可能引發通膨"
+      },
+      {
+        "name": "網通族群",
+        "code": null,
+        "category": "網通",
+        "note": "B端客戶可轉嫁記憶體漲價，影響有限"
+      },
+      {
+        "name": "自身",
+        "code": null,
+        "category": "半導體設備",
+        "note": "台積電CoWoS烤箱供應商，從傳產轉型"
+      }
     ]
   }
 ]

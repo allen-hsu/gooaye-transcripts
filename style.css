@@ -180,6 +180,46 @@ header h1 {
     font-weight: bold;
 }
 
+/* Stocks Section */
+.card-stocks {
+    background: rgba(74, 222, 128, 0.08);
+    border: 1px solid rgba(74, 222, 128, 0.25);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.stocks-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #4ade80;
+    margin-bottom: 12px;
+}
+
+.stocks-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.stock-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.stock-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #4ade80;
+}
+
+.stock-note {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
 /* Card Footer */
 .card-footer {
     display: flex;

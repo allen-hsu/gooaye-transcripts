@@ -66,6 +66,8 @@ function renderCards(data) {
         const tags = extractTags(ep.transcript);
         const hasHighlights = ep.highlights && ep.highlights.length > 0;
         
+        const hasStocks = ep.stocks && ep.stocks.length > 0;
+        
         return `
             <div class="card" data-index="${index}">
                 <div class="card-header">
@@ -79,6 +81,19 @@ function renderCards(data) {
                         <ul class="highlights-list">
                             ${ep.highlights.map(h => `<li>${h}</li>`).join('')}
                         </ul>
+                    </div>
+                ` : ''}
+                ${hasStocks ? `
+                    <div class="card-stocks">
+                        <div class="stocks-label">📈 提及標的</div>
+                        <div class="stocks-list">
+                            ${ep.stocks.map(s => `
+                                <div class="stock-item">
+                                    <span class="stock-name">${s.name}${s.code ? ` (${s.code})` : ''}</span>
+                                    <span class="stock-note">${s.note}</span>
+                                </div>
+                            `).join('')}
+                        </div>
                     </div>
                 ` : ''}
                 <div class="card-footer">
