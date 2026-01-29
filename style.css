@@ -320,10 +320,18 @@ header h1 {
 }
 
 .modal-body {
-    white-space: pre-wrap;
     line-height: 1.9;
     font-size: 0.95rem;
     color: var(--text);
+}
+
+.modal-body p {
+    margin-bottom: 1.2em;
+    text-indent: 0;
+}
+
+.modal-body p:last-child {
+    margin-bottom: 0;
 }
 
 /* Footer */

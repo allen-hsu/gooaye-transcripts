@@ -117,11 +117,51 @@ function renderCards(data) {
     });
 }
 
+// Format transcript into readable paragraphs
+function formatTranscript(text) {
+    if (!text) return '';
+    
+    const lines = text.split('\n').filter(l => l.trim());
+    const paragraphs = [];
+    let current = [];
+    
+    for (let i = 0; i < lines.length; i++) {
+        const line = lines[i].trim();
+        current.push(line);
+        
+        // Break into paragraphs every ~3-5 sentences or at natural topic shifts
+        const combined = current.join('');
+        const sentenceCount = (combined.match(/[。！？\n]/g) || []).length;
+        const isLongEnough = combined.length > 150;
+        const nextLine = lines[i + 1]?.trim() || '';
+        
+        // Detect topic shifts: next line starts with certain patterns
+        const topicShift = /^(那|所以|然後|再來|接下來|好那|反正|總之|當然|可是|但是|不過|像|其實|最後|第一|第二|下面|還有)/.test(nextLine);
+        
+        if ((sentenceCount >= 3 && isLongEnough) || combined.length > 300 || (sentenceCount >= 2 && topicShift)) {
+            paragraphs.push(current.join(''));
+            current = [];
+        }
+    }
+    
+    if (current.length > 0) {
+        paragraphs.push(current.join(''));
+    }
+    
+    return paragraphs.map(p => `<p>${escapeHtml(p)}</p>`).join('');
+}
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
 // Open modal
 function openModal(episode) {
     modalTitle.textContent = `${episode.episode} - ${episode.title}`;
     modalDate.textContent = episode.date;
-    modalBody.textContent = episode.transcript;
+    modalBody.innerHTML = formatTranscript(episode.transcript);
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
 }
