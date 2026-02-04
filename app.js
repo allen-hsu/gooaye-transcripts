@@ -27,6 +27,7 @@ async function loadData() {
 // Extract tags from content
 function extractTags(transcript) {
     const tags = [];
+    if (!transcript) return tags;
     const keywords = [
         { word: '台積電', tag: '台積電' },
         { word: 'AI', tag: 'AI' },
@@ -89,7 +90,7 @@ function renderCards(data) {
                         <div class="stocks-list">
                             ${ep.stocks.map(s => `
                                 <div class="stock-item">
-                                    <span class="stock-name">${s.name}${s.code ? ` (${s.code})` : ''}</span>
+                                    <span class="stock-name">${s.name}${s.ticker || s.code ? ` (${s.ticker || s.code})` : ''}</span>
                                     <span class="stock-note">${s.note}</span>
                                 </div>
                             `).join('')}
@@ -183,8 +184,9 @@ function handleSearch() {
     
     const filtered = episodes.filter(ep => {
         const highlightsMatch = ep.highlights?.some(h => h.toLowerCase().includes(query));
+        const transcriptMatch = ep.transcript?.toLowerCase().includes(query);
         return ep.title.toLowerCase().includes(query) ||
-               ep.transcript.toLowerCase().includes(query) ||
+               transcriptMatch ||
                ep.episode.toLowerCase().includes(query) ||
                highlightsMatch;
     });
